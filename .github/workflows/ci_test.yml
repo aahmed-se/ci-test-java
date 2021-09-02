@@ -1,0 +1,30 @@
+name: CI - Unit
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+
+jobs:
+
+  unit-tests:
+    name: "Unit tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '8'
+      - name: Thundra Maven Test Instrumentation
+        uses: thundra-io/thundra-maven-test-action@v1
+        with:
+          apikey: 8dfb0b4e-9587-42a1-ad97-627a08537be5
+          project_id: af4b9d18-5ee8-4e4c-9e8a-28aebd5a848b
+          command: mvn -ntp clean install
+
